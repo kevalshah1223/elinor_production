@@ -338,11 +338,11 @@ const ContactPage = () => {
                     className="bg-green-600 hover:bg-green-700 text-white font-bold border-2 border-green-600 shadow-lg"
                     asChild
                   >
-                    <a 
-                      href="https://wa.me/919662098555" 
-                      target="_blank" 
+                    <a
+                      href="https://wa.me/919662098555"
+                      target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center"
+                      className="flex items-center text-white font-bold"
                     >
                       <MessageCircle className="mr-2 h-5 w-5" />
                       WhatsApp Chat

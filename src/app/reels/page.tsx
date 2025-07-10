@@ -238,14 +238,14 @@ const ReelsPage = () => {
               </p>
               <Button
                 size="lg"
-                className="bg-red-600 hover:bg-red-700 text-white font-semibold"
+                className="bg-red-600 hover:bg-red-700 text-white font-bold shadow-lg border-2 border-red-600"
                 asChild
               >
-                <a 
-                  href="https://youtube.com/@elinorproduction" 
-                  target="_blank" 
+                <a
+                  href="https://youtube.com/@elinorproduction"
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center"
+                  className="flex items-center text-white font-bold"
                 >
                   <Youtube className="mr-2 h-5 w-5" />
                   Subscribe Now
@@ -271,14 +271,14 @@ const ReelsPage = () => {
               </p>
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-semibold"
+                className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-bold shadow-lg border-2 border-pink-500"
                 asChild
               >
-                <a 
-                  href="https://www.instagram.com/elinor.production" 
-                  target="_blank" 
+                <a
+                  href="https://www.instagram.com/elinor.production"
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center"
+                  className="flex items-center text-white font-bold"
                 >
                   <Instagram className="mr-2 h-5 w-5" />
                   Follow Us

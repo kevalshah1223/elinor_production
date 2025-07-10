@@ -354,18 +354,18 @@ const AboutPage = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
-                className="bg-white text-black hover:bg-gray-200 font-semibold px-8 py-6 text-lg"
+                className="bg-white text-black hover:bg-gray-100 font-bold px-8 py-6 text-lg shadow-lg border-2 border-white"
                 asChild
               >
-                <a href="/contact">Get In Touch</a>
+                <a href="/contact" className="text-black font-bold">Get In Touch</a>
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-black font-semibold px-8 py-6 text-lg"
+                className="border-2 border-white text-white hover:bg-white hover:text-black font-bold px-8 py-6 text-lg bg-black/20 backdrop-blur-sm"
                 asChild
               >
-                <a href="/gallery">View Our Work</a>
+                <a href="/gallery" className="font-bold">View Our Work</a>
               </Button>
             </div>
           </motion.div>

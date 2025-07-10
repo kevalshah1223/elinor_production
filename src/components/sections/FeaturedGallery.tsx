@@ -153,10 +153,10 @@ const FeaturedGallery = () => {
         >
           <Button
             size="lg"
-            className="bg-white text-black hover:bg-gray-200 font-semibold px-8 py-6 text-lg group"
+            className="bg-white text-black hover:bg-gray-100 font-bold px-8 py-6 text-lg group shadow-lg border-2 border-white"
             asChild
           >
-            <a href="/gallery" className="flex items-center">
+            <a href="/gallery" className="flex items-center text-black font-bold">
               View Complete Gallery
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
             </a>
