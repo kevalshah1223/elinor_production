@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Elinor Production - Professional Photography & Videography Website
 
-## Getting Started
+A modern, responsive website built with Next.js for Elinor Production, showcasing professional photography and videography services.
 
-First, run the development server:
+## 🌟 Features
+
+- **Modern Design**: Dark theme with cinematic feel using Inter/Poppins fonts
+- **Responsive**: Mobile-first design that works on all devices
+- **Fast Performance**: Optimized for speed with Next.js 14+ and modern web practices
+- **SEO Optimized**: Complete SEO setup with metadata, structured data, and sitemap
+- **Interactive**: Smooth animations with Framer Motion
+- **Gallery**: Categorized image gallery with lightbox functionality
+- **Video Reels**: Video gallery with embedded playback
+- **Contact Form**: Functional contact form ready for email integration
+- **Social Integration**: Links to Instagram, YouTube, and WhatsApp
+
+## 🚀 Pages
+
+1. **Homepage** - Hero section with social media integration and featured content
+2. **Gallery** - Categorized photo gallery (Pre-Wedding, Wedding, Fashion, Events)
+3. **Reels** - Video gallery with YouTube and Instagram embeds
+4. **About** - Company story, team, and business information
+5. **Testimonials** - Client reviews and testimonials
+6. **Contact** - Contact form and business information
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 14+ with App Router
+- **Styling**: Tailwind CSS 4 with ShadCN UI components
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Fonts**: Inter & Poppins from Google Fonts
+- **Deployment**: Vercel-ready configuration
+
+## 📦 Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/kevalshah1223/elinor_production.git
+cd elinor_production
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Deployment to Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Option 1: Deploy via Vercel Dashboard
 
-## Learn More
+1. Push your code to GitHub
+2. Go to [Vercel Dashboard](https://vercel.com/dashboard)
+3. Click "New Project"
+4. Import your GitHub repository
+5. Configure project settings (Vercel will auto-detect Next.js)
+6. Click "Deploy"
 
-To learn more about Next.js, take a look at the following resources:
+### Option 2: Deploy via Vercel CLI
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Install Vercel CLI:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm i -g vercel
+```
 
-## Deploy on Vercel
+2. Login to Vercel:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+vercel login
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. Deploy:
+
+```bash
+vercel
+```
+
+4. Follow the prompts to configure your deployment
+
+## 📞 Business Information
+
+- **Business Name**: Elinor Production
+- **Type**: Sole Proprietorship
+- **Grievance Officer**: Chirag Shah
+- **Email**: elinorproduction@gmail.com
+- **Mobile**: +91 96620 98555
+- **Landline**: +91 84694 31555
+
+**Built with ❤️ for Elinor Production**
