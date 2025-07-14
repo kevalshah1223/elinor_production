@@ -54,11 +54,12 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
               <Image
-                src="/ep_black.png"
+                src="/el_white.png"
                 alt="Elinor Production Logo"
                 width={32}
                 height={32}
                 className="h-8 w-auto"
+                quality={100}
               />
               <span className="text-xl font-bold">Elinor Production</span>
             </div>

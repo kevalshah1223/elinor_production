@@ -43,11 +43,13 @@ const Navigation = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3">
             <Image
-              src="/ep_black.png"
+              src="/el_white.png"
               alt="Elinor Production Logo"
-              width={40}
-              height={40}
-              className="h-10 w-auto brightness-0 invert"
+              width={48}
+              height={48}
+              className="h-12 w-auto"
+              priority
+              quality={100}
             />
           </Link>
 
