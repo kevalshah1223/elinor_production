@@ -147,11 +147,23 @@ const GalleryPage = () => {
             {/* Error State */}
             {error && (
               <div className="col-span-full text-center py-20">
-                <p className="text-red-400 text-lg mb-4">Error loading images: {error}</p>
-                <Button onClick={refetch} variant="outline">
-                  <RefreshCw className="h-4 w-4 mr-2" />
-                  Try Again
-                </Button>
+                <div className="max-w-md mx-auto">
+                  <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-8 backdrop-blur-sm">
+                    <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Camera className="h-8 w-8 text-red-400" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-white mb-2">Unable to Load Gallery</h3>
+                    <p className="text-red-400 text-sm mb-6 leading-relaxed">{error}</p>
+                    <Button
+                      onClick={refetch}
+                      className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105"
+                      disabled={loading}
+                    >
+                      <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+                      {loading ? 'Retrying...' : 'Try Again'}
+                    </Button>
+                  </div>
+                </div>
               </div>
             )}
 

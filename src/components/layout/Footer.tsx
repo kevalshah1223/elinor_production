@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Camera, Instagram, Youtube, MessageCircle, Phone, Mail } from 'lucide-react'
 
 const Footer = () => {
@@ -51,8 +52,14 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <Camera className="h-8 w-8 text-white" />
+            <div className="flex items-center space-x-3">
+              <Image
+                src="/ep_black.png"
+                alt="Elinor Production Logo"
+                width={32}
+                height={32}
+                className="h-8 w-auto"
+              />
               <span className="text-xl font-bold">Elinor Production</span>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">

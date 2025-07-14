@@ -23,17 +23,31 @@ export const metadata: Metadata = {
   authors: [{ name: "Elinor Production" }],
   creator: "Elinor Production",
   publisher: "Elinor Production",
+  icons: {
+    icon: "/ep_black.png",
+    shortcut: "/ep_black.png",
+    apple: "/ep_black.png",
+  },
   openGraph: {
     title: "Elinor Production - Professional Photography & Videography",
     description: "Capturing Moments, Creating Stories. Professional photography and videography services.",
     url: "https://elinorproduction.com",
     siteName: "Elinor Production",
     type: "website",
+    images: [
+      {
+        url: "/ep_grey.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Elinor Production Logo",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Elinor Production - Professional Photography & Videography",
     description: "Capturing Moments, Creating Stories. Professional photography and videography services.",
+    images: ["/ep_grey.jpg"],
   },
 };
 

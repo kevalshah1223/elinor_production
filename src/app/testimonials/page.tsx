@@ -148,13 +148,16 @@ const TestimonialsPage = () => {
               </CardContent>
             </Card>
           ) : error ? (
-            <Card className="bg-gradient-to-r from-red-800/20 to-red-700/20 border-red-600">
+            <Card className="bg-red-500/10 border border-red-500/20 backdrop-blur-sm">
               <CardContent className="p-8 md:p-12 text-center">
-                <p className="text-red-400 mb-4">{error}</p>
+                <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <RefreshCw className="h-8 w-8 text-red-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-2">Failed to Load Testimonials</h3>
+                <p className="text-red-400 text-sm mb-6 leading-relaxed">{error}</p>
                 <Button
                   onClick={fetchTestimonials}
-                  variant="outline"
-                  className="border-red-600 text-red-400 hover:bg-red-600 hover:text-white"
+                  className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105"
                 >
                   <RefreshCw className="h-4 w-4 mr-2" />
                   Try Again

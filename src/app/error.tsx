@@ -38,15 +38,15 @@ export default function Error({
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               onClick={reset}
-              className="bg-white text-black hover:bg-gray-200 font-semibold"
+              className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold px-8 py-3 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105"
             >
               <RefreshCw className="mr-2 h-4 w-4" />
               Try Again
             </Button>
-            
+
             <Button
               variant="outline"
-              className="border-white text-white hover:bg-white hover:text-black font-semibold"
+              className="border-2 border-white text-white hover:bg-white hover:text-black font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
               asChild
             >
               <a href="/">

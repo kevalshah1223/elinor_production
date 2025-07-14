@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Menu, X, Camera, Instagram, Youtube, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -40,9 +41,14 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <Camera className="h-8 w-8 text-white" />
-            <span className="text-xl font-bold text-white">Elinor Production</span>
+          <Link href="/" className="flex items-center space-x-3">
+            <Image
+              src="/ep_black.png"
+              alt="Elinor Production Logo"
+              width={40}
+              height={40}
+              className="h-10 w-auto brightness-0 invert"
+            />
           </Link>
 
           {/* Desktop Navigation */}

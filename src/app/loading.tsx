@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { Camera } from 'lucide-react'
 
 const Loading = () => {
@@ -9,24 +10,24 @@ const Loading = () => {
       <div className="text-center">
         <motion.div
           animate={{
-            rotate: 360,
-            scale: [1, 1.2, 1]
+            scale: [1, 1.1, 1]
           }}
           transition={{
-            rotate: {
-              duration: 2,
-              repeat: Infinity,
-              ease: "linear"
-            },
             scale: {
-              duration: 1,
+              duration: 1.5,
               repeat: Infinity,
               ease: "easeInOut"
             }
           }}
           className="mb-6"
         >
-          <Camera className="h-16 w-16 text-white mx-auto" />
+          <Image
+            src="/ep_black.png"
+            alt="Elinor Production Logo"
+            width={80}
+            height={80}
+            className="h-20 w-auto mx-auto"
+          />
         </motion.div>
         
         <motion.h2

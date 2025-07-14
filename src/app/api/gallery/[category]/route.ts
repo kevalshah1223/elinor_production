@@ -77,9 +77,41 @@ export async function GET(
     return response;
   } catch (error) {
     console.error('Error fetching gallery images:', error);
+
+    // Provide more specific error messages
+    let errorMessage = 'Failed to fetch images from Google Drive';
+    let statusCode = 500;
+
+    if (error instanceof Error) {
+      if (error.message.includes('client_email')) {
+        errorMessage = 'Google Drive API credentials not configured. Please check your environment variables.';
+        statusCode = 400;
+      } else if (error.message.includes('private_key')) {
+        errorMessage = 'Google Drive API private key is invalid. Please check your GOOGLE_PRIVATE_KEY environment variable.';
+        statusCode = 400;
+      } else if (error.message.includes('not found')) {
+        errorMessage = 'Google Drive folder not found. Please check your folder ID and permissions.';
+        statusCode = 404;
+      } else if (error.message.includes('permission')) {
+        errorMessage = 'Access denied to Google Drive folder. Please share the folder with your service account.';
+        statusCode = 403;
+      }
+    }
+
     return NextResponse.json(
-      { error: 'Failed to fetch images from Google Drive' },
-      { status: 500 }
+      {
+        error: errorMessage,
+        details: error instanceof Error ? error.message : 'Unknown error',
+        troubleshooting: {
+          steps: [
+            'Check /api/diagnose for configuration issues',
+            'Verify Google Drive API credentials in .env.local',
+            'Ensure service account has access to the folder',
+            'Test connection at /api/test-drive'
+          ]
+        }
+      },
+      { status: statusCode }
     );
   }
 }

@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Instagram, Youtube, MessageCircle, Play } from 'lucide-react'
-import Image from 'next/image'
 import { useState, useEffect } from 'react'
 
 const HeroSection = () => {
@@ -86,38 +85,40 @@ const HeroSection = () => {
           transition={{ duration: 0.8 }}
           className="space-y-8"
         >
-          {/* Main Heading */}
-          <div className="space-y-4">
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-5xl md:text-7xl lg:text-8xl font-bold font-poppins"
-            >
-              <span className="gradient-text">Elinor</span>
-              <br />
-              <span className="text-white">Production</span>
-            </motion.h1>
-            
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl md:text-2xl lg:text-3xl text-gray-300 font-light max-w-3xl mx-auto"
-            >
-              Capturing Moments, Creating Stories
-            </motion.p>
-          </div>
+          {/* Company Name */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="flex justify-center mb-12"
+          >
+            <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white font-poppins tracking-wider">
+              ELINOR
+              <span className="block text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-light text-gray-300 tracking-widest mt-2">
+                PRODUCTION
+              </span>
+            </h1>
+          </motion.div>
+
+          {/* Main Tagline */}
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-2xl md:text-4xl lg:text-5xl text-white font-light max-w-4xl mx-auto mb-8 font-poppins"
+          >
+            Capturing Moments, Creating Stories
+          </motion.h2>
 
           {/* Description */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed"
           >
-            Professional photography and videography services for weddings, pre-weddings, 
-            fashion shoots, and special events. We transform your precious moments into 
+            Professional photography and videography services for weddings, pre-weddings,
+            fashion shoots, and special events. We transform your precious moments into
             timeless memories.
           </motion.p>
 
@@ -125,7 +126,7 @@ const HeroSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <Button
@@ -154,7 +155,7 @@ const HeroSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
             className="flex justify-center space-x-8 pt-8"
           >
             {socialLinks.map((social, index) => (
