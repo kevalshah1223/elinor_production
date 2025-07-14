@@ -34,6 +34,7 @@ const TestimonialsPage = () => {
       if (data.success) {
         setTestimonials(data.testimonials || [])
         console.log(`📊 Loaded ${data.testimonials?.length || 0} testimonials from ${data.source}`)
+        console.log('🔍 Frontend received testimonials:', data.testimonials)
       } else {
         setError('Failed to load testimonials')
         setTestimonials(data.testimonials || [])

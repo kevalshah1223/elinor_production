@@ -3,7 +3,7 @@ import { google } from 'googleapis';
 
 // Google Sheets configuration
 const SPREADSHEET_ID = '1mLmIrhPXHpVXK_-AEyaGZr6GxvtoRgrLDoMlBSUcLe8';
-const RANGE = 'A:F'; // Get all data from columns A to F
+const RANGE = 'A:F'; // Get all data from columns A to F (Timestamp, Name, Event, Rating, Testimonial, Date)
 
 interface Testimonial {
   id: string;
@@ -63,19 +63,19 @@ async function fetchTestimonialsFromSheets(): Promise<Testimonial[]> {
     
     for (let i = 1; i < rows.length; i++) {
       const row = rows[i];
-      
-      // Expected columns: Name, Event, Rating, Testimonial, Date, (Optional: Status)
-      if (row.length >= 5 && row[0] && row[3]) { // At least name and testimonial required
+
+      // Expected columns: Timestamp, Name, Event, Rating, Testimonial, Date
+      if (row.length >= 5 && row[1] && row[4]) { // At least name and testimonial required
         testimonials.push({
           id: `testimonial-${i}`,
-          name: row[0] || 'Anonymous',
-          event: row[1] || 'Photography Service',
-          rating: parseInt(row[2]) || 5,
-          testimonial: row[3] || '',
-          date: row[4] || new Date().toLocaleDateString('en-US', { 
-            month: 'long', 
-            year: 'numeric' 
-          })
+          name: row[1] || 'Anonymous',           // Column B: Name
+          event: row[2] || 'Photography Service', // Column C: Event
+          rating: parseInt(row[3]) || 5,         // Column D: Rating
+          testimonial: row[4] || '',             // Column E: Testimonial
+          date: row[5] || new Date().toLocaleDateString('en-US', {
+            month: 'long',
+            year: 'numeric'
+          })                                     // Column F: Date
         });
       }
     }
@@ -156,8 +156,8 @@ export async function GET() {
       spreadsheetId: SPREADSHEET_ID
     });
 
-    // Cache for 30 minutes
-    response.headers.set('Cache-Control', 'public, s-maxage=1800, stale-while-revalidate=3600');
+    // Disable caching for debugging
+    response.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
 
     return response;
   } catch (error) {
