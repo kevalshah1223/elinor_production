@@ -8,7 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Copy, Plus, Youtube, Instagram, Trash2 } from 'lucide-react'
-import { videosData } from '@/data/videos'
+// Note: This admin panel is for demonstration purposes
+// In production, you would connect this to your actual data source
 
 const VideoAdmin = () => {
   const [newVideo, setNewVideo] = useState({
@@ -23,6 +24,22 @@ const VideoAdmin = () => {
   })
 
   const [generatedCode, setGeneratedCode] = useState('')
+
+  // Sample videos data for demonstration
+  const [videosData] = useState([
+    {
+      id: 'sample-wedding-1',
+      title: 'Beautiful Wedding Ceremony',
+      description: 'A stunning wedding ceremony captured in cinematic style',
+      thumbnail: '/placeholder-image.svg',
+      embedUrl: 'https://www.youtube.com/embed/sample',
+      platform: 'youtube' as const,
+      category: 'wedding',
+      duration: '3:45',
+      featured: true,
+      publishedAt: '2024-01-15T10:00:00Z'
+    }
+  ])
 
   const categories = [
     { value: 'wedding', label: 'Wedding Films' },
@@ -257,9 +274,9 @@ const VideoAdmin = () => {
                     <ol className="list-decimal list-inside space-y-1">
                       <li>Copy the generated code above</li>
                       <li>Open src/data/videos.ts</li>
-                      <li>Add the code to the videosData array</li>
-                      <li>Save the file</li>
-                      <li>Refresh your reels page to see the new video</li>
+                      <li>Integrate with your video management system</li>
+                      <li>Update your database or CMS</li>
+                      <li>Deploy changes to see the new video</li>
                     </ol>
                   </div>
                 </div>
