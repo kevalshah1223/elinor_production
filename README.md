@@ -47,7 +47,18 @@ cd elinor_production
 npm install
 ```
 
-3. Run the development server:
+3. Set up environment variables:
+
+```bash
+# Quick setup using Vercel CLI (recommended)
+npx vercel env pull .env.local
+
+# OR copy template and fill manually
+cp .env.example .env.local
+# Edit .env.local with your Google Drive API credentials
+```
+
+4. Run the development server:
 
 ```bash
 npm run dev
