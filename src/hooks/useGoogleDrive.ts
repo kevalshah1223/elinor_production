@@ -61,6 +61,7 @@ interface AllMediaResponse {
   breakdown?: {
     images: number;
     videos: number;
+    categories: number;
   };
 }
 
