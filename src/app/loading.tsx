@@ -22,7 +22,7 @@ const Loading = () => {
           className="mb-6"
         >
           <Image
-            src="/ep_black.png"
+            src="/el_white.png"
             alt="Elinor Production Logo"
             width={80}
             height={80}
