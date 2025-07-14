@@ -37,6 +37,9 @@ yarn-error.log*
 *.json
 charismatic-sum-465604-s0-*.json
 
+# Visible environment file (copy of .env.local for easy access)
+env.local
+
 # vercel
 .vercel
 
