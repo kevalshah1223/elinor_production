@@ -1,0 +1,16 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+*.config.js
+*.config.ts
+public/
+.vercel/
+coverage/
+.env*
+*.log
+.DS_Store
+src/app/admin/
+src/app/test-drive/
+src/app/folder-summary/

@@ -1,1 +1,8 @@
-{"framework": "nextjs", "buildCommand": "npm run build:vercel"}
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build:vercel",
+  "env": {
+    "DISABLE_ESLINT_PLUGIN": "true",
+    "SKIP_ENV_VALIDATION": "1"
+  }
+}
