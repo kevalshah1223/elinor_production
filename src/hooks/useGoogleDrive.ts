@@ -58,6 +58,10 @@ interface AllMediaResponse {
   total: number;
   lastUpdated: string;
   categories: string[];
+  breakdown?: {
+    images: number;
+    videos: number;
+  };
 }
 
 // Hook for fetching gallery images
