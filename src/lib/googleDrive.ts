@@ -1,7 +1,7 @@
 import { google } from 'googleapis';
 
 // Initialize Google Drive API
-const initializeDrive = () => {
+export const initializeDrive = () => {
   const auth = new google.auth.GoogleAuth({
     credentials: {
       client_email: process.env.GOOGLE_CLIENT_EMAIL,
