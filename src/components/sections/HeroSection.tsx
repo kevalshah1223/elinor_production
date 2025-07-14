@@ -4,8 +4,28 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Instagram, Youtube, MessageCircle, Play } from 'lucide-react'
 import Image from 'next/image'
+import { useState, useEffect } from 'react'
 
 const HeroSection = () => {
+  const [particles, setParticles] = useState<Array<{
+    id: number
+    left: number
+    top: number
+    duration: number
+    delay: number
+  }>>([])
+
+  useEffect(() => {
+    // Generate particles only on client side to avoid hydration mismatch
+    const newParticles = [...Array(50)].map((_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      duration: 3 + Math.random() * 2,
+      delay: Math.random() * 2,
+    }))
+    setParticles(newParticles)
+  }, [])
   const socialLinks = [
     {
       href: 'https://wa.me/c/919662098555',
@@ -36,22 +56,22 @@ const HeroSection = () => {
         <div className="w-full h-full bg-gradient-to-br from-gray-900 via-black to-gray-800" />
         {/* Animated particles effect */}
         <div className="absolute inset-0 opacity-20">
-          {[...Array(50)].map((_, i) => (
+          {particles.map((particle) => (
             <motion.div
-              key={i}
+              key={particle.id}
               className="absolute w-1 h-1 bg-white rounded-full"
               style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
+                left: `${particle.left}%`,
+                top: `${particle.top}%`,
               }}
               animate={{
                 y: [0, -30, 0],
                 opacity: [0, 1, 0],
               }}
               transition={{
-                duration: 3 + Math.random() * 2,
+                duration: particle.duration,
                 repeat: Infinity,
-                delay: Math.random() * 2,
+                delay: particle.delay,
               }}
             />
           ))}

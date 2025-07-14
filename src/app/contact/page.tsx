@@ -11,7 +11,6 @@ import { Phone, Mail, MessageCircle, Clock, Send, CheckCircle } from 'lucide-rea
 const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     phone: '',
     message: '',
     eventType: ''
@@ -31,24 +30,59 @@ const ContactPage = () => {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission - replace with actual email service integration
     try {
-      // Here you would integrate with EmailJS, Nodemailer, or your preferred email service
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
-      setIsSubmitted(true)
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        message: '',
-        eventType: ''
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       })
+
+      const data = await response.json()
+
+      if (data.success) {
+        setIsSubmitted(true)
+        setFormData({
+          name: '',
+          phone: '',
+          message: '',
+          eventType: ''
+        })
+        console.log('✅ Message sent successfully to elinorproduction@gmail.com')
+      } else {
+        throw new Error(data.error || 'Failed to send message')
+      }
     } catch (error) {
-      console.error('Error submitting form:', error)
+      console.error('❌ Error submitting form:', error)
+      alert('Failed to send message. Please try again later.')
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  // WhatsApp function - completely free, no API needed
+  const sendWhatsAppMessage = () => {
+    const phoneNumber = '919662098555' // Your WhatsApp business number
+    const message = `Hi Elinor Production!
+
+I'm interested in your photography services.
+
+Name: ${formData.name || 'Not provided'}
+Phone: ${formData.phone || 'Not provided'}
+Event Type: ${formData.eventType || 'Not specified'}
+
+Message: ${formData.message || 'I would like to know more about your services.'}
+
+Please get back to me with more details.
+
+Thank you!`
+
+    const encodedMessage = encodeURIComponent(message)
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`
+
+    // Open WhatsApp in new tab/window
+    window.open(whatsappURL, '_blank')
   }
 
   const contactInfo = [
@@ -153,38 +187,20 @@ const ContactPage = () => {
                   </h2>
                   
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                          Full Name *
-                        </label>
-                        <Input
-                          id="name"
-                          name="name"
-                          type="text"
-                          required
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-                          placeholder="Your full name"
-                        />
-                      </div>
-                      
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                          Email Address *
-                        </label>
-                        <Input
-                          id="email"
-                          name="email"
-                          type="email"
-                          required
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-                          placeholder="your.email@example.com"
-                        />
-                      </div>
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                        Full Name *
+                      </label>
+                      <Input
+                        id="name"
+                        name="name"
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                        placeholder="Your full name"
+                      />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -257,6 +273,22 @@ const ContactPage = () => {
                         </div>
                       )}
                     </Button>
+
+                    {/* WhatsApp Button - Free Alternative */}
+                    <div className="mt-4 text-center">
+                      <p className="text-gray-400 text-sm mb-3">Or send us a message instantly</p>
+                      <Button
+                        type="button"
+                        onClick={sendWhatsAppMessage}
+                        className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 text-lg border-2 border-green-600 shadow-lg transition-all duration-300"
+                      >
+                        <MessageCircle className="mr-2 h-5 w-5" />
+                        Send via WhatsApp
+                      </Button>
+                      <p className="text-gray-500 text-xs mt-2">
+                        Opens WhatsApp with your message pre-filled
+                      </p>
+                    </div>
                   </form>
                 </CardContent>
               </Card>

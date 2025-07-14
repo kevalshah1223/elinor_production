@@ -1,106 +1,114 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Star, Quote, ChevronLeft, ChevronRight, Heart, Camera } from 'lucide-react'
-import Image from 'next/image'
+import { Star, Quote, ChevronLeft, ChevronRight, Heart, Camera, Loader2, RefreshCw, Play, Pause } from 'lucide-react'
+
+interface Testimonial {
+  id: string;
+  name: string;
+  event: string;
+  rating: number;
+  testimonial: string;
+  date: string;
+}
 
 const TestimonialsPage = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const [isPaused, setIsPaused] = useState(false)
 
-  // Dummy testimonials data - replace with actual client testimonials
-  const testimonials = [
-    {
-      id: 1,
-      name: 'Priya & Arjun',
-      event: 'Wedding Photography',
-      rating: 5,
-      image: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=400&h=400&fit=crop',
-      testimonial: 'Elinor Production captured our wedding day perfectly! Every moment was beautifully documented, and the team was so professional and friendly. We couldn\'t be happier with our photos and videos.',
-      date: 'December 2023'
-    },
-    {
-      id: 2,
-      name: 'Sneha & Vikram',
-      event: 'Pre-Wedding Shoot',
-      rating: 5,
-      image: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=400&h=400&fit=crop',
-      testimonial: 'Our pre-wedding shoot was absolutely magical! The photographer understood our vision and created stunning images that we will treasure forever. Highly recommended!',
-      date: 'November 2023'
-    },
-    {
-      id: 3,
-      name: 'Ananya Sharma',
-      event: 'Fashion Photography',
-      rating: 5,
-      image: 'https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=400&h=400&fit=crop',
-      testimonial: 'Working with Elinor Production for my fashion portfolio was an incredible experience. The creativity and attention to detail exceeded my expectations. The final images are absolutely stunning!',
-      date: 'October 2023'
-    },
-    {
-      id: 4,
-      name: 'Rajesh Kumar',
-      event: 'Corporate Event',
-      rating: 5,
-      image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=400&fit=crop',
-      testimonial: 'Elinor Production covered our annual corporate event flawlessly. They captured all the important moments and delivered high-quality photos promptly. Very professional service!',
-      date: 'September 2023'
-    },
-    {
-      id: 5,
-      name: 'Meera & Rohit',
-      event: 'Wedding Reception',
-      rating: 5,
-      image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=400&fit=crop',
-      testimonial: 'The team captured our reception celebration beautifully! Every candid moment, every emotion was perfectly preserved. The quality of work is exceptional and the team is wonderful to work with.',
-      date: 'August 2023'
-    },
-    {
-      id: 6,
-      name: 'Kavya & Aditya',
-      event: 'Engagement Photography',
-      rating: 5,
-      image: 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=400&h=400&fit=crop',
-      testimonial: 'Our engagement photos turned out beyond our dreams! The photographer was patient, creative, and made us feel comfortable throughout the shoot. We love every single photo!',
-      date: 'July 2023'
-    },
-    {
-      id: 7,
-      name: 'Ravi Patel',
-      event: 'Birthday Celebration',
-      rating: 5,
-      image: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400&h=400&fit=crop',
-      testimonial: 'Elinor Production made my milestone birthday celebration memorable with their amazing photography. They captured all the joy and laughter perfectly. Highly professional and talented team!',
-      date: 'June 2023'
-    },
-    {
-      id: 8,
-      name: 'Ishita & Karan',
-      event: 'Wedding Videography',
-      rating: 5,
-      image: 'https://images.unsplash.com/photo-1606800052052-a08af7148866?w=400&h=400&fit=crop',
-      testimonial: 'The wedding film created by Elinor Production is absolutely cinematic! They captured our love story beautifully and created a masterpiece that we watch over and over again.',
-      date: 'May 2023'
+  // Fetch testimonials from Google Sheets
+  const fetchTestimonials = async () => {
+    setLoading(true)
+    setError(null)
+    try {
+      const response = await fetch('/api/testimonials')
+      const data = await response.json()
+
+      if (data.success) {
+        setTestimonials(data.testimonials || [])
+        console.log(`📊 Loaded ${data.testimonials?.length || 0} testimonials from ${data.source}`)
+      } else {
+        setError('Failed to load testimonials')
+        setTestimonials(data.testimonials || [])
+      }
+    } catch (err) {
+      console.error('Error fetching testimonials:', err)
+      setError('Failed to load testimonials')
+      setTestimonials([])
+    } finally {
+      setLoading(false)
     }
-  ]
+  }
+
+  // Load testimonials on component mount
+  useEffect(() => {
+    fetchTestimonials()
+  }, [])
+
+  // Reset current testimonial when testimonials change
+  useEffect(() => {
+    if (Array.isArray(testimonials) && testimonials.length > 0 && currentTestimonial >= testimonials.length) {
+      setCurrentTestimonial(0)
+    }
+  }, [testimonials, currentTestimonial])
+
+  // Add keyboard navigation
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (Array.isArray(testimonials) && testimonials.length > 1) {
+        if (event.key === 'ArrowLeft') {
+          prevTestimonial()
+        } else if (event.key === 'ArrowRight') {
+          nextTestimonial()
+        }
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyPress)
+    return () => window.removeEventListener('keydown', handleKeyPress)
+  }, [testimonials, currentTestimonial])
+
+  // Auto-play testimonials
+  useEffect(() => {
+    if (Array.isArray(testimonials) && testimonials.length > 1 && isAutoPlaying && !isPaused) {
+      const interval = setInterval(() => {
+        nextTestimonial()
+      }, 5000) // Change every 5 seconds
+
+      return () => clearInterval(interval)
+    }
+  }, [testimonials, currentTestimonial, isAutoPlaying, isPaused])
 
   const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
+    if (Array.isArray(testimonials) && testimonials.length > 0) {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
+    }
   }
 
   const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+    if (Array.isArray(testimonials) && testimonials.length > 0) {
+      setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+    }
   }
 
   const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }, (_, i) => (
-      <Star
-        key={i}
-        className={`h-5 w-5 ${i < rating ? 'text-yellow-400 fill-current' : 'text-gray-400'}`}
-      />
-    ))
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+      stars.push(
+        <Star
+          key={i}
+          className={`h-5 w-5 ${i < rating ? 'text-yellow-400 fill-current' : 'text-gray-400'}`}
+        />
+      );
+    }
+    return stars;
   }
 
   return (
@@ -129,94 +137,150 @@ const TestimonialsPage = () => {
 
       {/* Featured Testimonial */}
       <section className="py-16 bg-black">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            key={currentTestimonial}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.5 }}
-            className="relative"
-          >
-            <Card className="bg-gradient-to-r from-gray-800/50 to-gray-700/50 border-gray-600 overflow-hidden">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          {loading ? (
+            <Card className="bg-gradient-to-r from-gray-800/50 to-gray-700/50 border-gray-600">
               <CardContent className="p-8 md:p-12">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-                  {/* Image */}
-                  <div className="lg:col-span-1">
-                    <div className="aspect-square relative overflow-hidden rounded-lg">
-                      <Image
-                        src={testimonials[currentTestimonial].image}
-                        alt={testimonials[currentTestimonial].name}
-                        fill
-                        className="object-cover"
-                        sizes="400px"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="lg:col-span-2 space-y-6">
-                    <Quote className="h-12 w-12 text-gray-400" />
-                    
-                    <blockquote className="text-xl md:text-2xl text-gray-200 leading-relaxed italic">
-                      "{testimonials[currentTestimonial].testimonial}"
-                    </blockquote>
-
-                    <div className="flex items-center space-x-1 mb-4">
-                      {renderStars(testimonials[currentTestimonial].rating)}
-                    </div>
-
-                    <div>
-                      <h3 className="text-2xl font-bold text-white font-poppins">
-                        {testimonials[currentTestimonial].name}
-                      </h3>
-                      <p className="text-gray-400 font-medium">
-                        {testimonials[currentTestimonial].event}
-                      </p>
-                      <p className="text-gray-500 text-sm">
-                        {testimonials[currentTestimonial].date}
-                      </p>
-                    </div>
-                  </div>
+                <div className="flex items-center justify-center space-x-3">
+                  <Loader2 className="h-6 w-6 animate-spin text-gray-400" />
+                  <span className="text-gray-400">Loading</span>
                 </div>
               </CardContent>
             </Card>
-
-            {/* Navigation Buttons */}
-            <div className="flex justify-center mt-8 space-x-4">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={prevTestimonial}
-                className="border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white"
+          ) : error ? (
+            <Card className="bg-gradient-to-r from-red-800/20 to-red-700/20 border-red-600">
+              <CardContent className="p-8 md:p-12 text-center">
+                <p className="text-red-400 mb-4">{error}</p>
+                <Button
+                  onClick={fetchTestimonials}
+                  variant="outline"
+                  className="border-red-600 text-red-400 hover:bg-red-600 hover:text-white"
+                >
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  Try Again
+                </Button>
+              </CardContent>
+            </Card>
+          ) : !Array.isArray(testimonials) || testimonials.length === 0 ? (
+            <Card className="bg-gradient-to-r from-gray-800/50 to-gray-700/50 border-gray-600">
+              <CardContent className="p-8 md:p-12 text-center">
+                <p className="text-gray-400">No testimonials available at the moment.</p>
+              </CardContent>
+            </Card>
+          ) : (
+            <motion.div
+              key={currentTestimonial}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="relative"
+            >
+              <Card
+                className="bg-gradient-to-r from-gray-800/50 to-gray-700/50 border-gray-600 overflow-hidden"
+                onMouseEnter={() => setIsPaused(true)}
+                onMouseLeave={() => setIsPaused(false)}
               >
-                <ChevronLeft className="h-4 w-4 mr-2" />
-                Previous
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={nextTestimonial}
-                className="border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white"
-              >
-                Next
-                <ChevronRight className="h-4 w-4 ml-2" />
-              </Button>
-            </div>
+                <CardContent className="p-8 md:p-12">
+                  <div className="text-center space-y-6">
+                    {/* Quote Icon */}
+                    <Quote className="h-12 w-12 text-gray-400 mx-auto" />
 
-            {/* Dots Indicator */}
-            <div className="flex justify-center mt-6 space-x-2">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentTestimonial(index)}
-                  className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                    index === currentTestimonial ? 'bg-white' : 'bg-gray-600'
-                  }`}
-                />
-              ))}
-            </div>
-          </motion.div>
+                    {/* Testimonial Text */}
+                    <blockquote className="text-xl md:text-2xl text-gray-200 leading-relaxed italic max-w-3xl mx-auto">
+                      "{Array.isArray(testimonials) && testimonials[currentTestimonial] ? testimonials[currentTestimonial].testimonial : ''}"
+                    </blockquote>
+
+                    {/* Rating */}
+                    <div className="flex items-center justify-center space-x-1 mb-4">
+                      {Array.isArray(testimonials) && testimonials[currentTestimonial] ? renderStars(testimonials[currentTestimonial].rating) : renderStars(5)}
+                    </div>
+
+                    {/* Client Info */}
+                    <div className="space-y-2">
+                      <h3 className="text-2xl font-bold text-white font-poppins">
+                        {Array.isArray(testimonials) && testimonials[currentTestimonial] ? testimonials[currentTestimonial].name : 'Loading...'}
+                      </h3>
+                      <p className="text-gray-400 font-medium">
+                        {Array.isArray(testimonials) && testimonials[currentTestimonial] ? testimonials[currentTestimonial].event : 'Loading...'}
+                      </p>
+                      <p className="text-gray-500 text-sm">
+                        {Array.isArray(testimonials) && testimonials[currentTestimonial] ? testimonials[currentTestimonial].date : ''}
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+            </Card>
+
+            {/* Navigation Buttons - Only show if multiple testimonials */}
+            {Array.isArray(testimonials) && testimonials.length > 1 && (
+              <>
+                <div className="flex justify-center items-center mt-8 space-x-6">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    onClick={prevTestimonial}
+                    className="group relative bg-gray-800/50 border-2 border-gray-600 text-white hover:border-white hover:bg-white hover:text-black transition-all duration-300 px-6 py-3 rounded-full shadow-lg backdrop-blur-sm"
+                  >
+                    <ChevronLeft className="h-5 w-5 mr-2 group-hover:scale-110 transition-transform duration-300" />
+                    <span className="font-semibold">Previous</span>
+                  </Button>
+
+                  {/* Current testimonial indicator with play/pause */}
+                  <div className="flex items-center space-x-4">
+                    <button
+                      onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+                      className="group p-3 bg-gray-800/50 border border-gray-600 rounded-full hover:border-white hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm"
+                      aria-label={isAutoPlaying ? 'Pause auto-play' : 'Start auto-play'}
+                    >
+                      {isAutoPlaying ? (
+                        <Pause className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
+                      ) : (
+                        <Play className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
+                      )}
+                    </button>
+
+                    <div className="flex items-center space-x-2 px-4 py-2 bg-gray-800/30 rounded-full border border-gray-600 backdrop-blur-sm">
+                      <span className="text-gray-400 text-sm font-medium">
+                        {currentTestimonial + 1} of {testimonials.length}
+                      </span>
+                    </div>
+                  </div>
+
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    onClick={nextTestimonial}
+                    className="group relative bg-gray-800/50 border-2 border-gray-600 text-white hover:border-white hover:bg-white hover:text-black transition-all duration-300 px-6 py-3 rounded-full shadow-lg backdrop-blur-sm"
+                  >
+                    <span className="font-semibold">Next</span>
+                    <ChevronRight className="h-5 w-5 ml-2 group-hover:scale-110 transition-transform duration-300" />
+                  </Button>
+                </div>
+
+                {/* Dots Indicator */}
+                <div className="flex justify-center mt-8 space-x-3">
+                  {Array.isArray(testimonials) && testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentTestimonial(index)}
+                      className={`group relative transition-all duration-300 ${
+                        index === currentTestimonial
+                          ? 'w-8 h-3 bg-white rounded-full shadow-lg'
+                          : 'w-3 h-3 bg-gray-600 hover:bg-gray-400 rounded-full hover:scale-125'
+                      }`}
+                      aria-label={`Go to testimonial ${index + 1}`}
+                    >
+                      {index === currentTestimonial && (
+                        <div className="absolute inset-0 bg-white rounded-full animate-pulse opacity-50"></div>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+            </motion.div>
+          )}
         </div>
       </section>
 
@@ -239,7 +303,7 @@ const TestimonialsPage = () => {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
+            {Array.isArray(testimonials) && testimonials.map((testimonial, index) => (
               <motion.div
                 key={testimonial.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -259,14 +323,10 @@ const TestimonialsPage = () => {
                     </blockquote>
 
                     <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 relative overflow-hidden rounded-full">
-                        <Image
-                          src={testimonial.image}
-                          alt={testimonial.name}
-                          fill
-                          className="object-cover"
-                          sizes="48px"
-                        />
+                      <div className="w-12 h-12 bg-gradient-to-br from-gray-600 to-gray-800 rounded-full flex items-center justify-center">
+                        <span className="text-white font-bold text-lg">
+                          {testimonial.name.charAt(0)}
+                        </span>
                       </div>
                       <div>
                         <h4 className="text-white font-semibold">
@@ -304,12 +364,14 @@ const TestimonialsPage = () => {
           </motion.div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { number: '500+', label: 'Happy Clients' },
-              { number: '98%', label: 'Satisfaction Rate' },
-              { number: '1000+', label: 'Events Covered' },
-              { number: '5★', label: 'Average Rating' }
-            ].map((stat, index) => (
+            {(() => {
+              const stats = [
+                { number: '500+', label: 'Happy Clients' },
+                { number: '98%', label: 'Satisfaction Rate' },
+                { number: '1000+', label: 'Events Covered' },
+                { number: '5★', label: 'Average Rating' }
+              ];
+              return stats.map((stat, index) => (
               <motion.div
                 key={index}
                 initial={{ scale: 0 }}
@@ -325,7 +387,8 @@ const TestimonialsPage = () => {
                   {stat.label}
                 </div>
               </motion.div>
-            ))}
+              ));
+            })()}
           </div>
         </div>
       </section>
