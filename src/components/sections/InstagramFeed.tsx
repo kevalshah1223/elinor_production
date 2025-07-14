@@ -168,13 +168,13 @@ const InstagramFeed = () => {
                 asChild
               >
                 <a 
-                  href="https://www.instagram.com/elinor.production" 
+                  href="https://www.instagram.com/elinorproduction" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center"
                 >
                   <Instagram className="mr-2 h-5 w-5" />
-                  Follow @elinor.production
+                  Follow @elinorproduction
                 </a>
               </Button>
               

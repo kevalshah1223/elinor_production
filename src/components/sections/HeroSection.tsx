@@ -33,7 +33,7 @@ const HeroSection = () => {
       color: 'hover:text-green-400'
     },
     {
-      href: 'https://www.instagram.com/elinor.production',
+      href: 'https://www.instagram.com/elinorproduction',
       icon: Instagram,
       label: 'Instagram',
       color: 'hover:text-pink-400'
