@@ -8,6 +8,7 @@ interface DriveImage {
   createdTime: string;
   size: string;
   mimeType: string;
+  type: 'image';
 }
 
 interface DriveVideo {
@@ -19,6 +20,7 @@ interface DriveVideo {
   size: string;
   mimeType: string;
   duration?: string;
+  type: 'video';
 }
 
 interface GalleryResponse {
