@@ -24,6 +24,8 @@ interface DriveVideo {
 interface GalleryResponse {
   category: string;
   images: DriveImage[];
+  videos: DriveVideo[];
+  media: (DriveImage | DriveVideo)[];
   total: number;
   lastUpdated: string;
 }
