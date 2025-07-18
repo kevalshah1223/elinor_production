@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Instagram, Youtube, Play } from 'lucide-react'
+import YouTubeVideos from './YouTubeVideos'
 
 const SocialConnect = () => {
   return (
@@ -27,6 +28,12 @@ const SocialConnect = () => {
             Connect with us on social media for daily inspiration.
           </p>
         </motion.div>
+
+        {/* YouTube Videos Section */}
+        <YouTubeVideos />
+
+        {/* Spacer */}
+        <div className="py-12"></div>
 
         {/* Connect With Us on Instagram */}
         <motion.div
