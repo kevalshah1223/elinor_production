@@ -30,7 +30,7 @@ const Footer = () => {
       label: 'WhatsApp Catalog'
     },
     {
-      href: 'https://www.instagram.com/elinor.production',
+      href: 'https://www.instagram.com/elinorproduction',
       icon: Instagram,
       label: 'Instagram'
     },
