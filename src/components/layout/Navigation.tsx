@@ -37,20 +37,26 @@ const Navigation = () => {
   ]
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-black/95 backdrop-blur-md border-b border-gray-700">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="fixed top-0 w-full z-50">
+      {/* Background with blur effect */}
+      <div className="absolute inset-0 bg-black/20 backdrop-blur-xl border-b border-white/10 glass"></div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
-            <Image
-              src="/el_white.png"
-              alt="Elinor Production Logo"
-              width={48}
-              height={48}
-              className="h-12 w-auto"
-              priority
-              quality={100}
-            />
+          {/* Logo - isolated from blur */}
+          <Link href="/" className="flex items-center space-x-3 relative z-20">
+            <div className="logo-crisp bg-black/10 rounded-lg p-1">
+              <Image
+                src="/el_white.png"
+                alt="Elinor Production Logo"
+                width={96}
+                height={96}
+                className="h-10 w-auto"
+                priority
+                quality={100}
+                unoptimized={false}
+              />
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -100,7 +106,7 @@ const Navigation = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="md:hidden bg-black/95 backdrop-blur-md border-t border-gray-800"
+          className="md:hidden bg-black/30 backdrop-blur-xl border-t border-white/10 glass"
         >
           <div className="px-4 py-6 space-y-4">
             {navItems.map((item) => (

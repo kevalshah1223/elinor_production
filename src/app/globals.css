@@ -202,6 +202,29 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Logo crisp effect - prevents blur from affecting logo */
+.logo-crisp {
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  isolation: isolate;
+  will-change: transform;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  -ms-interpolation-mode: nearest-neighbor;
+}
+
+.logo-crisp img {
+  filter: none !important;
+  backdrop-filter: none !important;
+  image-rendering: -webkit-optimize-contrast !important;
+  image-rendering: crisp-edges !important;
+  -ms-interpolation-mode: nearest-neighbor !important;
+}
+
 /* Line clamp utilities */
 .line-clamp-1 {
   overflow: hidden;
