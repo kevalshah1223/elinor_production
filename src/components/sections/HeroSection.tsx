@@ -50,18 +50,21 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Video/Image */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70 z-10" />
+        {/* Red tone blend overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-red-950/30 to-black/80 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-900/20 to-transparent z-10" />
         {/* Placeholder for hero background - you can replace with actual video/image */}
-        <div className="w-full h-full bg-gradient-to-br from-gray-900 via-black to-gray-800" />
-        {/* Animated particles effect */}
-        <div className="absolute inset-0 opacity-20">
+        <div className="w-full h-full bg-gradient-to-br from-gray-900 via-red-950/40 to-black" />
+        {/* Animated particles effect with red tones */}
+        <div className="absolute inset-0 opacity-30">
           {particles.map((particle) => (
             <motion.div
               key={particle.id}
-              className="absolute w-1 h-1 bg-white rounded-full"
+              className="absolute w-1 h-1 rounded-full"
               style={{
                 left: `${particle.left}%`,
                 top: `${particle.top}%`,
+                background: particle.id % 3 === 0 ? '#ef4444' : particle.id % 3 === 1 ? '#dc2626' : '#ffffff',
               }}
               animate={{
                 y: [0, -30, 0],
@@ -92,9 +95,11 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="flex justify-center mb-12"
           >
-            <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white font-poppins tracking-wider">
-              ELINOR
-              <span className="block text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-light text-gray-300 tracking-widest mt-2">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold font-poppins tracking-wider">
+              <span className="bg-gradient-to-r from-white via-red-100 to-white bg-clip-text text-transparent">
+                ELINOR
+              </span>
+              <span className="block text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-widest mt-2 bg-gradient-to-r from-gray-300 via-red-200 to-gray-300 bg-clip-text text-transparent">
                 PRODUCTION
               </span>
             </h1>
@@ -131,18 +136,18 @@ const HeroSection = () => {
           >
             <Button
               size="lg"
-              className="bg-white text-black hover:bg-gray-100 font-bold px-8 py-6 text-lg shadow-lg border-2 border-white"
+              className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold px-8 py-6 text-lg shadow-lg border-2 border-red-600 hover:border-red-700 transition-all duration-300"
               asChild
             >
-              <a href="/gallery" className="text-black font-bold">
+              <a href="/gallery" className="text-white font-bold">
                 View Our Work
               </a>
             </Button>
-            
+
             <Button
               size="lg"
               variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-black font-semibold px-8 py-6 text-lg bg-black/20 backdrop-blur-sm"
+              className="border-2 border-red-500 text-red-400 hover:bg-red-600 hover:text-white hover:border-red-600 font-semibold px-8 py-6 text-lg bg-black/20 backdrop-blur-sm transition-all duration-300"
               asChild
             >
               <a href="/contact">
@@ -178,11 +183,13 @@ const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* Decorative Elements */}
-      <div className="absolute top-1/4 left-10 w-20 h-20 border border-white/20 rotate-45 hidden lg:block" />
-      <div className="absolute bottom-1/4 right-10 w-16 h-16 border border-white/20 rotate-12 hidden lg:block" />
-      <div className="absolute top-1/3 right-1/4 w-2 h-2 bg-white rounded-full hidden lg:block" />
-      <div className="absolute bottom-1/3 left-1/4 w-3 h-3 bg-white/50 rounded-full hidden lg:block" />
+      {/* Decorative Elements with Red Accents */}
+      <div className="absolute top-1/4 left-10 w-20 h-20 border border-red-500/30 rotate-45 hidden lg:block" />
+      <div className="absolute bottom-1/4 right-10 w-16 h-16 border border-red-400/40 rotate-12 hidden lg:block" />
+      <div className="absolute top-1/3 right-1/4 w-2 h-2 bg-red-500 rounded-full hidden lg:block animate-pulse" />
+      <div className="absolute bottom-1/3 left-1/4 w-3 h-3 bg-red-400/70 rounded-full hidden lg:block animate-pulse" />
+      <div className="absolute top-1/2 left-1/3 w-1 h-1 bg-red-300 rounded-full hidden lg:block" />
+      <div className="absolute bottom-1/2 right-1/3 w-1 h-1 bg-red-600 rounded-full hidden lg:block" />
     </section>
   )
 }
